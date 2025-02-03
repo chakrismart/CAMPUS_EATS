@@ -1,0 +1,85 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+    <div class="search-bar">
+        <input type="text" placeholder="Search for the dish...." />
+        <button>
+            <img src="{% static 'search_icon.png' %}" alt="Search" />
+        </button>
+    </div>
+
+    <main>
+        <div class="content">
+            <div>
+                <h1>WELCOME to CAMPUS EATS !!</h1><br>
+                <h3>Delicious food at your fingertips. Browse, search, and enjoy a seamless canteen experience!</h3>
+            </div>
+            <img src="{% static 'landing_content.jpg' %}" width="200px" height="200px" alt="Food img">
+        </div>
+        <div class="second">
+            <div class="categories">
+                <h2>Categories</h2>
+                <hr>
+                <div class="crow1">
+                    <a href="{% url 'category' 'TIFFINS' %}" class="item_anchors">
+                    <div class="item">
+                        <img height="220px" width="250px"  src="{% static 'tiffins.png' %}" alt="tiffins">
+                        <h4>TIFFINS</h4><hr>
+                    </div>
+                    </a>
+                    <a href="{% url 'category' 'MAIN-COURSE' %}" class="item_anchors">
+                    <div class="item">
+                        <img height="220px" width="250px" src="{% static 'main_course.png' %}" alt="main_course">
+                        <h4>MAIN COURSE</h4><hr>
+                    </div>
+                    </a>
+                    <a href="{% url 'category' 'BAKERY' %}" class="item_anchors">
+                    <div class="item">
+                        <img height="220px" width="250px" src="{% static 'bakery.png' %}" alt="bakery">
+                        <h4>BAKERY</h4><hr>
+                    </div>
+                    </a>
+                </div>   
+                <div class="crow2">
+                    <a href="{% url 'category' 'CHINESE' %}" class="item_anchors">
+                    <div class="item">
+                        <img height="220px" width="250px" src="{% static 'chinese.jpg' %}" alt="chinese"><hr>
+                        <h4>CHINESE</h4><hr>
+                    </div>
+                    </a>
+                    <a href="{% url 'category' 'SNACKS' %}" class="item_anchors">
+                    <div class="item">
+                        <img height="220px" width="250px" src="{% static 'snacks.jpg' %}" alt="snacks">
+                        <h4>SNACKS</h4><hr>
+                    </div>
+                    </a>
+                    <a href="{% url 'category' 'BEVERAGES' %}" class="item_anchors">
+                    <div class="item">
+                        <img height="220px" width="250px" src="{% static 'beverages.jpg' %}" alt="beverages">
+                        <h4>BEVERAGES</h4><hr>
+                    </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="popular">
+                <h2>Popular Dishes</h2>
+                <hr>
+                <table>
+                    <tr>
+                        <td><img src="" alt=""></td>
+                        <td><img src="" alt=""></td>
+                        <td><img src="" alt=""></td>
+                    </tr>
+                    <tr>
+                        <td><img src="" alt=""></td>
+                        <td><img src="" alt=""></td>
+                        <td><img src="" alt=""></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

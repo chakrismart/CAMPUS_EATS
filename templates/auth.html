@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup Form</title>
+    <link rel="stylesheet" href="{% static 'login_css.css' %}">
+</head>
+<body>
+    <div class="login_body">
+        <img src="{% static 'dark_theme_logo.png' %}" class="logo" alt="logo" width="200px">
+        <div class="container">
+            <div class="form-container">
+                
+                <form id="loginForm" class="form-content" method="post" action="{% url 'auth' %}">
+                    {% csrf_token %}
+                    
+                    {% for message in messages %}
+                    <p>{{ message }}</p>
+                    {% endfor %} 
+                    <h2>Login</h2>
+                    <input type="text" placeholder="Username" required name="Username" autocomplete="additional-name">
+                    <input type="password" placeholder="Password" required name="password">
+                    <button>Login</button>
+                    <p>Don't have an account? <span onclick="toggleForm()">Sign up</span></p>
+                </form>
+                <form id="signupForm" class="form-content hidden" action="{% url 'auth' %}" method="post">
+                    {% csrf_token %}
+                    <h2>Sign Up</h2>
+                    {% for message in messages %}
+                    <p>{{ message }}</p>
+                    {% endfor %} 
+                    <input type="text" placeholder="Username" required autocomplete="additional-name" name="Username">
+                    <input type="email" placeholder="Email" required autocomplete="additional-name" name="email">
+                    <input type="password" placeholder="Password" required name="password">
+                    <input type="hidden" name="action" value="register"><!-- hidden imput -->
+                    <button type="submit">Sign Up</button>
+                    <p>Already have an account? <span onclick="toggleForm()">Log in</span></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'login.js' %}"></script>
+</body>
+</html>

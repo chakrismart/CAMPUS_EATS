@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% for product in products%}
+<div class="card">
+    <div class="food-card">
+        <img src="{{product.image.url}}" alt="Food Item" class="food-image">
+        <div class="food-details">
+            <h2 class="food-name">{{product.name}}</h2>
+            {% if product.is_available%}
+            <p class="availability in-stock">Available</p> 
+            {% else %}
+            <p class="availability in-stock">Not Available</p> 
+            {% endif %}
+            <p class="price">{{product.price}} RS</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+    </div>
+{% endfor %}
+{% endblock %}

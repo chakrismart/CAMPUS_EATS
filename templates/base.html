@@ -1,0 +1,76 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&family=Raleway:wght@100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Eats</title>
+    <link rel="stylesheet" href="{% static 'home_page_css.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'dark_theme_logo.png' %}" alt="Campus Eats logo">
+        </div>
+        <div class="header_nav">
+            <nav class="navs">
+                <ul>
+                    <li><a class="h" href="/">Home</a></li>
+                    <li><a class="h" href="#">Contact</a></li>
+                    <li><a class="h" href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="icons">
+           
+
+            <a href="#" id="toggle_theme">
+                <img class="cp" id="theme_icon" 
+                     src="{% static 'light_mode.png' %}" 
+                     data-light="{% static 'light_mode.png' %}" 
+                     data-dark="{% static 'night_mode.png' %}" 
+                     alt="Theme icon">
+            </a>
+            
+          
+            
+            <a href="#"><img class="cp" src="{% static 'cart_png.png' %}" alt="cart icon"></a>
+           
+            <a href="#"><img class="cp" src="{% static 'profile_png.png' %}" alt="profile icon"></a>
+        </div>
+    </header>
+
+    {% block content %}
+
+    {% endblock %}
+    
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <img src="{% static 'dark_theme_logo.png' %}" alt="Campus Eats Logo">
+        </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+        <div class="footer-social">
+            <a href="#"><img src="{% static 'linkedin.png' %}" alt="LinkedIn"></a>
+            <a href="#"><img src="{% static 'mail.png' %}" alt="Mail"></a>
+            <a href="#"><img src="{% static 'instagram.png' %}" alt="Instagram"></a>
+        </div>
+        <div class="footer-info">
+            <p>&copy; 2025 Campus Eats</p>
+            <p>All rights reserved</p>
+        </div>
+    </div>
+</footer>
+<script src="{% static 'home_page_js.js' %}"></script>
+</body>
+</html>
