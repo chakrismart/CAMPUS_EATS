@@ -50,4 +50,4 @@ def category(request,foo):
    
     products=Product.objects.filter(category=category)
     
-    return render(request,'category.html',{'products':products})
+    return render(request,'category.html',{'products':products,'category':category})

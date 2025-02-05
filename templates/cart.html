@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="cart-container">
+        <div class="cart-header">
+            <h1>Your Shopping Cart</h1>
+        </div>
+        <div class="cart-items">
+        {% if total %}
+            {% for product in products%}
+                    <div class="cart-item">
+                        <img src="{{product.image.url}}" alt="Product Image" class="product-img">
+                        <div class="item-details">
+                            <h2>{{product.name}}</h2>
+                            <p class="price">RS {{ product.price}}</p>
+                            <div class="quantity-controls">
+                                
+                                   <label >Quantity:
+                                   <select id="select{{product.id}}" name="quantity" class="form-select" style="width: 80px;">
+                                    {% for key,value in quantities.items %}
+                                   {% if key == product.id|slugify %}
+                                        <option selected>{{value}}</option>
+                                        {% endif %}
+                                        {% endfor %}
+                                       <option value="1">1</option>
+                                       <option value="2">2</option>
+                                       <option value="3">3</option>
+                                       <option value="4">4</option>
+                                       <option value="5">5</option>
+                                   </select> 
+                                </label>                                
+                                     
+                                <button class="remove-btn" data-index="{{product.id}}" >Remove</button>
+                                <button class="update-btn" data-index="{{product.id}}">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                
+            {% endfor %}
+        {% else %}
+           <h3>Nothing in your cart</h3>
+        {% endif %}
+            </div>
+        
+            <div class="cart-footer">
+                <div class="total-price">
+                    <h2>Total: <span>₹{{total}}</span></h2>
+                </div>
+                <div class="buttons">
+                    <button class="btn checkout">Proceed to Payment</button>
+                    <button class="btn back-to-shop">Back to Shop</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).on("click", ".remove-btn", function (e) {
+                e.preventDefault();
+            
+                let product_id = $(this).data("index");
+               
+            
+                let csrfToken = $("meta[name='csrf-token']").attr("content");
+            
+                $.ajax({
+                    url: "/cart/cart_delete/",  
+                    type: "POST",
+                    data: {
+                        product_id: product_id,
+             
+                        csrfmiddlewaretoken: csrfToken,
+                        action: 'post'
+                    },
+                    success: function (response) {
+                        location.reload(); 
+                    },
+                    error: function () {
+                        alert("Error updating cart");
+                    },
+                });
+            });
+
+
+            $(document).on("click", ".update-btn", function (e) {
+                e.preventDefault();
+            
+                let product_id = $(this).data("index");
+                let quantity = $(this).closest(".cart-item").find(".form-select").val(); 
+            
+                let csrfToken = $("meta[name='csrf-token']").attr("content");
+            
+                $.ajax({
+                    url: "/cart/cart_update/",  
+                    type: "POST",
+                    data: {
+                        product_id: product_id,
+                        product_qt: quantity, 
+                        csrfmiddlewaretoken: csrfToken,
+                        action: 'post'
+                    },
+                    success: function (response) {
+                        location.reload(); 
+                    },
+                    error: function () {
+                        alert("Error updating cart");
+                    },
+                });
+            });
+            
+            
+        </script>
+{% endblock %}
