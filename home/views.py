@@ -2,7 +2,8 @@ from .models import Category,Product
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login 
+from django.contrib.auth import authenticate, login,logout
+from django.db.models import Q
 
 
 # Create your views here.
@@ -41,6 +42,11 @@ def auth(request):
             
     return render(request, 'auth.html') 
     
+
+def logout_(request):#   _  due to same function names for views and authenticate module
+    logout(request)
+    return redirect('auth')
+
 def home(request):
     return render(request,'home_page.html')
 
@@ -51,3 +57,17 @@ def category(request,foo):
     products=Product.objects.filter(category=category)
     
     return render(request,'category.html',{'products':products,'category':category})
+
+def search(request):
+    if request.method=='POST':
+        item=request.POST.get('search')
+        products=Product.objects.filter(Q(name__icontains=item)|Q(category__name__icontains=item))
+        if not item:  # Ensure the search query is not empty
+            return render(request, 'home_page.html')
+        
+        elif not products:
+            return render(request, 'home_page.html')
+        else:
+            
+            return render(request,'search.html',{'products':products}) 
+    return render(request,'search.html')

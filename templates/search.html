@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="title">
+    {{ category }}
+</div>
+
+<div class="item_container">
+{% for product in products%}
+<div class="card">
+    <div class="food-card">
+        <img src="{{product.image.url}}" alt="Food Item" class="food-image">
+        <div class="food-details">
+            <h2 class="food-name">{{product.name}}</h2>
+            {% if product.is_available%}
+            <p class="availability in-stock">Available</p> 
+            {% else %}
+            <p class="availability in-stock">Not Available</p> 
+            {% endif %}
+            <p class="price">{{product.price}} RS</p>
+            {% if product.is_available%}
+            <label >Quantity:
+            <select id="quantity-{{ product.id }}" name="quantity" class="form-select" style="width: 80px;">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </label>
+            <button class="add-to-cart" data-product-id="{{ product.id }}">Add to Cart</button>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+
+{% endfor %}
+
+</div>
+<script>
+    $(document).on('click', '.add-to-cart', function (e) {
+        e.preventDefault();
+        
+
+        let product_id = $(this).data('product-id'); 
+        let quantity = $(this).closest('.food-card').find('.form-select').val();
+        let csrfToken = $("meta[name='csrf-token']").attr("content"); 
+    
+        $.ajax({
+            type: 'POST',
+            url: '/cart/cart_add/',
+            data: {
+                product_id: product_id,
+                product_qt:quantity,
+                csrfmiddlewaretoken: csrfToken,
+                action: 'post'
+            },
+            success: function (json) {
+                console.log(json);
+                alert("Product added to cart!"); 
+            },
+            error: function (xhr, errmsg, err) {
+                console.error("AJAX error: " + xhr.status + ": " + xhr.responseText);
+            }
+        });
+    });
+    
+</script>
+
+{% endblock %}

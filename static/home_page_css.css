@@ -912,7 +912,7 @@ body {
 }
 
 .total-price span {
-    font-size: 10px;
+    font-size: 50%;
     color: #28a745;
     font-weight: bold;
 }
@@ -951,6 +951,8 @@ body {
     background-color: #0056b3;
     transform: scale(1.05);
 }
+
+
 
 /* Animations */
 @keyframes fadeIn {
