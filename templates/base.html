@@ -24,8 +24,8 @@
                 <ul>
                     <li><a class="h" href="{%  url 'home' %}">Home</a></li>
                     <li><a class="h" href="#">Contact</a></li>
-                    <li><a class="h" href="/about">About</a></li>
-                    <li><a class="h" href="{% url 'logout' %}">Logout</a></li>
+                    <li><a class="h" href="{% url 'about' %}">About</a></li>
+                    
                 </ul>
             </nav>
         </div>
@@ -44,7 +44,7 @@
             
             <a href="{% url 'cart_summary' %}"><img class="cp" src="{% static 'cart_png.png' %}" alt="cart icon"></a>
            
-            <a href="#"><img class="cp" src="{% static 'profile_png.png' %}" alt="profile icon"></a>
+            <a href="{% url 'profile' %}"><img class="cp" src="{% static 'profile_png.png' %}" alt="profile icon"></a>
         </div>
     </header>
 

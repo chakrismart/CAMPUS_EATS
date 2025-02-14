@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<form method="POST" class="update_profile_form" action="{% url 'save_profile' %}">
+    {% csrf_token %}
+    <label>Username:</label>
+    <input type="text" name="username" value="{{ username }}" readonly>
+
+    <label>First Name:</label>
+    <input type="text" name="first_name" value="{{ customer.first_name|default_if_none:'' }}">
+
+    <label>Last Name:</label>
+    <input type="text" name="last_name" value="{{ customer.last_name|default_if_none:'' }}">
+
+    <label>Mobile Number:</label>
+    <input type="tel" name="phone" maxlength="10" value="{{ customer.phone|default_if_none:'' }}">
+
+    <label>Branch:</label>
+    <input type="text" name="branch" value="{{ customer.branch|default_if_none:'' }}">
+
+    <label>Registered No.:</label>
+    <input type="text" name="regno" maxlength="10" value="{{ customer.registered_no|default_if_none:'' }}">
+   
+    <button type="submit">Save Profile</button>
+</form>
+
+{% endblock %}

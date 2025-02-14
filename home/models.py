@@ -9,14 +9,19 @@ class Category(models.Model):
     
 
 class Customer(models.Model):
-    first_name=models.CharField(max_length=50)
-    last_name=models.CharField(max_length=50)
-    phone=models.CharField(max_length=10)
-    email=models.EmailField(max_length=100)
-    password=models.CharField(max_length=50)
+    username = models.CharField(max_length=50, unique=True)  # Make username unique
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    phone = models.CharField(max_length=10)
+    email = models.EmailField(max_length=100, unique=True)
+    
+    branch = models.CharField(max_length=50, blank=True, null=True)  # Added branch
+    registered_no = models.CharField(max_length=10, blank=True, null=True)  # Added regno
+    profile_updated = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.first_name}{self.last_name}'
+        return self.username
+
 
 
 

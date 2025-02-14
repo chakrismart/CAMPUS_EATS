@@ -10,6 +10,7 @@ class Cart():
         if 'session_key' not in request.session:
 
             cart=self.session['session_key']={}
+
         self.cart=cart
         
     def add(self,product,quantity):
