@@ -31,9 +31,7 @@ header {
     width: 100%;
     height: 170px;
     display: flex;
-    margin-bottom: 2%;
     align-items: center;
-    flex-wrap: wrap;
     justify-content: flex-start;
     z-index: 100;
     transition: background-color 1.5s ease, background-image 1.5s ease;
@@ -73,43 +71,33 @@ body.dark-theme header {
     font-weight: 300;
     font-size: xx-large;
     color: white;
-    transition: transform 0.5s ease, color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+    transition: ease 0.5s;
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    display: inline-block;
 }
 
-.navs ul li a:hover {
+.navs ul li a:hover{
     transform: scale(1.1);
-    color: black;
-    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
+    color: #000;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.493);
 }
 
 body.dark-theme .navs ul li a {
-    color: #ff6810;
+    color: #ff6810; 
     font-weight: 400;
-    text-shadow: 0 0 10px rgb(0, 0, 0);
-    transition: transform 0.5s ease-in-out, color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.978);
+    transition: ease 0.5s;
 }
 
-body.dark-theme .navs ul li a:hover {
+body.dark-theme .navs ul li a:hover{
     color: #000;
-    transform: scale(1.1);
     text-shadow: 0 0 10px rgb(185, 185, 185);
-}
-
-.h {
-    display: inline-block;
-    transition: transform 0.8s, text-shadow 0.5s, color 0.4s;
-    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
-}
-
-.h:hover {
-    transform: scale(1.1);
-    color: black;
-    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
 }
 
 body.dark-theme .cp {
     filter: invert(60%) sepia(100%) saturate(5000%) hue-rotate(360deg) brightness(100%) contrast(100%) drop-shadow(0 0 10px #ff6810);
 }
+
 
 .icons {
     display: flex;
@@ -123,80 +111,139 @@ body.dark-theme .cp {
     height: 40px;
 }
 
+.profile-container {
+    position: relative;
+    display: inline-block;
+    z-index: 10;
+}
+
+.username{
+    color: white;
+    margin: 5px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 45px;
+    right: -5px;
+    background-color: #414141;
+    border-radius: 8px;
+    width: 180px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    display: none;
+    padding: 10px;
+    height: 100px;
+    font-family: 'Raleway',sans-serif;
+}
 
 
-/* Reset all styles */
+.dropdown-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 10px;
+    display: block;
+    margin-top: 15px;
+}
 
+.dropdown-menu a:hover {
+    background-color: #333;
+}
 
-/* Search bar container */
+.logout-btn {
+    width: 100%;
+    background-color: #ff6810;
+    border: none;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.logout-btn:hover {
+    background-color:#be4d0c;
+}
+
 .search-bar {
-    width: 100%;
+    position:sticky;
+    margin: 1%;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-/* Form Styling */
-.search-bar form {
-    display: flex;
-    align-items: center; /* Aligns items in a straight line */
-    width: 40%; /* Adjust as needed */
     max-width: 500px;
-    background: #fff;
-    border: 2px solid #ff9800;
+    border: 1px solid #ccc;
     border-radius: 25px;
-    padding: 0; /* Remove padding issues */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden; /* Prevents misalignment */
+    background-color: white;
+    box-shadow: 0 0 10px rgb(182, 89, 8);
+    z-index: 50;
 }
 
-/* Input field (80% width) */
 .search-bar input {
-    flex: 4; /* 80% width */
+    flex: 1;
     border: none;
-    outline: none;
-    padding: 12px;
+    padding: 10px 15px;
     font-size: 16px;
+    outline: none;
     border-radius: 25px 0 0 25px;
-    width: 100%;
-    height: 45px; /* Ensures the same height as button */
-    display: block; /* Prevents extra spacing */
+    background-color: white;
 }
 
-/* Search button (20% width) */
-.search-bar button {
-    flex: 1; /* 20% width */
-    background: #ff9800;
+body.dark-theme .search-bar{
+    position: sticky;
+    margin: 1%;
+    top: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0 0 10px rgb(182, 89, 8);
+    z-index: 50;
+}
+
+body.dark-theme .search-bar input{
+    flex: 1;
     border: none;
-    padding: 0; /* Remove extra padding */
-    border-radius: 0 25px 25px 0;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+    border-radius: 25px 0 0 25px;
+    background-color: rgb(0, 0, 0);
+}
+
+body.dark-theme input{
+    color: #ffffff;
+}
+.search-bar button {
+    background: transparent;
+    border: none;
+    padding: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 45px; /* Match input height */
-    transition: background 0.3s ease-in-out;
+    border-radius: 0 25px 25px 0;
 }
 
-/* Button hover effect */
-.search-bar button:hover {
-    background: #e68900;
-}
-
-/* Button image */
 .search-bar button img {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
+    filter: invert(50%);
+    transition: transform 0.2s ease-in-out;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .search-bar form {
-        width: 80%; /* Make it wider on smaller screens */
-    }
+.search-bar button:hover img {
+    transform: scale(1.4);
 }
 
-
+.search-bar input::placeholder {
+    color: #aaaaaac5;
+}
 
 main {
     display: flex;
@@ -442,10 +489,8 @@ hr {
     padding: 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
     align-items: center;
-    box-sizing: content-box;
     transition: background-color 1.5s ease, box-shadow 1.5s ease;
 }
-
 .categories hr {
     width: 80%;
     height: 1px;
@@ -583,7 +628,8 @@ body.dark-theme .item {
     font-weight: 600;
     
 }
-
+ /*.........................................................*/
+ 
 .footer {
     background-color: #2c2d2c;
     padding: 20px;
@@ -591,7 +637,6 @@ body.dark-theme .item {
     color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: background-color 1.5s ease, box-shadow 1.5s ease;
-    margin-top: 10%;
 }
 
 body.dark-theme .footer {
@@ -607,7 +652,7 @@ body.dark-theme .footer {
 
 .footer-logo img {
     width: 100px;
-    height: 50%;
+    height: auto;
     margin-bottom: 15px;
 }
 
@@ -650,13 +695,12 @@ body.dark-theme .footer-links ul li a {
     font-size: small;
 }
 
-
 /*...............................................*/
 
 .about_div{
     display: flex;
     width: 60%;
-    color: red ;
+    color: rgb(15, 15, 15) ;
 }
 
 
@@ -768,12 +812,7 @@ body.dark-theme .footer-links ul li a {
 
 
 /* General Styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-}
+
 
 .cart-container {
     max-width: 600px;
@@ -907,7 +946,7 @@ body {
 }
 
 .total-price span {
-    font-size: 50%;
+    font-size: 100%;
     color: #28a745;
     font-weight: bold;
 }
@@ -1151,8 +1190,7 @@ body.dark-theme .about_div{
 
 
 /* update_profile css */
-/* General Form Styling */
-.update_profile_form {
+.editpro {
     max-width: 500px;
     margin: 40px auto;
     padding: 20px;
@@ -1163,7 +1201,7 @@ body.dark-theme .about_div{
 }
 
 /* Labels */
-label {
+.editpro label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
@@ -1171,7 +1209,7 @@ label {
 }
 
 /* Inputs */
-input {
+.editpro input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -1182,20 +1220,20 @@ input {
 }
 
 /* Readonly Input */
-input[readonly] {
+.editpro input[readonly] {
     background-color: #e9ecef;
     color: #666;
     cursor: not-allowed;
 }
 
 /* Input Focus */
-input:focus {
+.editpro input:focus {
     border-color: #ff6810;
     outline: none;
 }
 
 /* Submit Button */
-button {
+.editpro button {
     width: 100%;
     padding: 12px;
     background: #ff6810;
@@ -1207,39 +1245,55 @@ button {
     transition: background 0.2s ease-in-out;
 }
 
-button:hover {
+.editpro button:hover {
     background: #a7440b;
 }
 
 /* Dark Theme */
-body.dark-theme form {
+body.dark-theme .editpro {
     background: #2c2d2c;
     color: white;
 }
 
-body.dark-theme input {
+body.dark-theme .editpro input {
     background: #252525;
     color: white;
     border: 1px solid #555;
 }
 
-body.dark-theme input[readonly] {
+body.dark-theme .editpro input[readonly] {
     background: #3a3a3a;
     color: #bbb;
 }
 
-body.dark-theme button {
+body.dark-theme .editpro button {
     background: #ff6810;
 }
 
-body.dark-theme button:hover {
+body.dark-theme .editpro button:hover {
     background: #a7440b;
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
-    form {
+    .editpro {
         width: 90%;
         padding: 15px;
     }
+}
+
+.btn.empty-cart {
+    background-color: #f44336;  /* Red color for warning */
+    color: white;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn.empty-cart:hover {
+    background-color: #d32f2f;  /* Darker red on hover */
 }

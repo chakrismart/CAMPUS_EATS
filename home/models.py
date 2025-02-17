@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 # Create your models here.
 import datetime
 class Category(models.Model):
@@ -18,6 +19,7 @@ class Customer(models.Model):
     branch = models.CharField(max_length=50, blank=True, null=True)  # Added branch
     registered_no = models.CharField(max_length=10, blank=True, null=True)  # Added regno
     profile_updated = models.BooleanField(default=False)
+    old_cart=models.CharField(max_length=100,blank=True,null=True)
 
     def __str__(self):
         return self.username
@@ -37,13 +39,16 @@ class Product(models.Model):
 
 # Create your models here.
 
+
+
 class Orders(models.Model):
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
-    customer=models.ForeignKey(Customer,on_delete=models.CASCADE)
-    quantity=models.IntegerField(default=1)
-    phone=models.CharField(max_length=10)
-    date=models.DateField(default=datetime.datetime.today)
-    status=models.BooleanField(default=False)
+    order_id = models.CharField(max_length=20, unique=True,blank=True)
+    transaction_id = models.CharField(max_length=50, blank=True, null=True)
+    customer_name = models.CharField(max_length=100,blank=True)
+    items = models.JSONField()  # Stores product IDs and quantities
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, default="Pending")  # "Pending" or "Paid"
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.product
+        return f"Order {self.order_id} - {self.status}"

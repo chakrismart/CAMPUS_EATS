@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from home.models import Product  
 from .cart import Cart  
-
+from django.contrib import messages
 
 def cart_summary(request):
 
@@ -25,7 +25,7 @@ def cart_add(request):
         #print(product.id,product.name)
         cart.add(product=product,quantity=product_quantity)
         #print(product.id,product.name)
-        
+        messages.info(request,"PRODUCT ADDED TO CART")
         return JsonResponse({"Product": product.name})
 
     
@@ -53,3 +53,9 @@ def cart_delete(request):
 
     
 
+def cart_empty(request):
+    cart=Cart(request)
+    if request.POST.get("action") == "post":
+        cart.empty()
+
+        return JsonResponse({'message':'Cart emptied'})

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    .payment-container {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .payment-container h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .payment-container img {
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .payment-form {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+    }
+
+    .payment-form label {
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .payment-form input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .order-btn {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .order-btn:hover {
+        background-color: #218838;
+    }
+</style>
+
+<div class="payment-container">
+    <h1>Scan QR Code to Pay</h1>
+    <img src="{% static 'qr_code.png' %}" alt="QR Code" height="300px" width="300px">
+
+    <h1>Total: ₹{{ total }}</h1>
+
+    <form class="payment-form" method="POST" action="{% url 'place_order' %}">
+        {% csrf_token %}
+        <label>Enter Transaction ID:</label>
+        <input type="text" name="transaction_id" placeholder="Enter Transaction ID" required>
+        
+        <input type="hidden" value="{{ total }}" name="total">
+        <input type="hidden" value="{{ final_cart }}" name="final_cart">
+        
+        <button class="order-btn" type="submit">Place Order</button>
+    </form>
+</div>
+
+{% endblock %}

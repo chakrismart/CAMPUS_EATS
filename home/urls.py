@@ -12,6 +12,9 @@ urlpatterns=[
     path('about/',views.about,name='about'),
     path('profile/',views.profile,name='profile'),
     path('profile_update/',views.profile_update,name='profile_update'),
-    path('save_profile/',views.save_profile,name='save_profile')
+    path('save_profile/',views.save_profile,name='save_profile'),
+    path("checkout/", views.checkout, name="checkout"),
+    path("place_order/", views.place_order, name="place_order"),
+    path("history/", views.history, name="history"),
 ]
 urlpatterns=urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

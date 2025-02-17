@@ -47,8 +47,16 @@
                     <h2>Total: <span class="cart_span">₹{{total}}</span></h2>
                 </div>
                 <div class="buttons">
+                    <form action="{% url 'checkout'  %}" method="POST">
+                        {% csrf_token %}
                     <button class="btn checkout">Proceed to Payment</button>
-                    <button class="btn back-to-shop">Back to Shop</button>
+                   </form>
+                           
+                <form action="{% url 'home'  %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn back-to-shop">Back To Shop</button>
+               </form>
+               <button class="btn empty-cart" id="empty-cart-btn">Empty Cart</button>
                 </div>
             </div>
         </div>
@@ -103,6 +111,27 @@
                     },
                     error: function () {
                         alert("Error updating cart");
+                    },
+                });
+            });
+            
+            $(document).on("click", "#empty-cart-btn", function (e) {
+                e.preventDefault();
+            
+                let csrfToken = $("meta[name='csrf-token']").attr("content");
+            
+                $.ajax({
+                    url: "/cart/cart_empty/",  // URL to empty the cart
+                    type: "POST",
+                    data: {
+                        csrfmiddlewaretoken: csrfToken,
+                        action: 'post'
+                    },
+                    success: function (response) {
+                        location.reload(); // Reload to update the cart
+                    },
+                    error: function () {
+                        alert("Error emptying cart");
                     },
                 });
             });

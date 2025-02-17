@@ -3,18 +3,6 @@
 {% block content %}
 {% load static %}
 
-<div class="search-bar">
-    <form action="{% url  'search' %}" method="POST">
-        {% csrf_token %}
-        <input type="text" placeholder="Search for the dish...." name="search" />
-        <button>
-            <img src="{% static 'search_icon.png' %}" alt="Search" />
-        </button>
-    </form>
-   
-</div>
-
-
 
     <main>
         <div class="content">

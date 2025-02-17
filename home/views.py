@@ -1,11 +1,17 @@
-from .models import Category,Product,Customer
+from .models import Category,Product,Customer,Orders
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-
+import json
+from cart.cart import Cart
+import json
+import uuid
+# import gspread
+# from google.oauth2.service_account import Credentials
+# from django.conf import settings
 
 def auth(request):
     if request.method == 'POST':
@@ -42,8 +48,17 @@ def auth(request):
 
             if user is not None:
                 login(request, user)
+                
+                current_user=Customer.objects.get(username=username)
+                saved_cart=current_user.old_cart
+                if saved_cart:
+                    converted_cart=json.loads(saved_cart)
+                    cart=Cart(request)
+                    for key,value in converted_cart.items():
+                        cart.db_add(key,value)
+                
+                
                 request.session['username'] = username  # Store username in session
-
                 # Check if user has updated profile
                 try:
                     customer = Customer.objects.get(username=username)
@@ -59,9 +74,42 @@ def auth(request):
 
     return render(request, 'auth.html')
 
- 
+def home(request):
+    return render(request,'home_page.html')
     
 
+
+def logout_(request):#   _  due to same function names for views and authenticate module
+    logout(request)
+    return redirect('auth')
+
+def about(request):
+   
+    return render(request,'about.html')
+
+
+def category(request,foo):
+    foo=foo.replace('-',' ')
+    category=Category.objects.get(name=foo)
+   
+    products=Product.objects.filter(category=category)
+    
+    return render(request,'category.html',{'products':products,'category':category})
+
+def search(request):
+    if request.method=='POST':
+        item=request.POST.get('search')
+       
+        products=Product.objects.filter(Q(name__icontains=item)|Q(category__name__icontains=item))
+        if not item:  # Ensure the search query is not empty
+            return render(request, 'home_page.html')
+        
+        elif not products:
+            return render(request, 'home_page.html')
+        else:
+            
+            return render(request,'search.html',{'products':products}) 
+    return render(request,'search.html')
 
 def profile_update(request):
     username = request.session.get('username', '')
@@ -102,41 +150,75 @@ def save_profile(request):
     return render(request, 'profile_update.html')
 
 
-
-
-def logout_(request):#   _  due to same function names for views and authenticate module
-    logout(request)
-    return redirect('auth')
-
-def home(request):
-    return render(request,'home_page.html')
-
-def about(request):
-   
-    return render(request,'about.html')
-
 def profile(request):
     customer = Customer.objects.get(username=request.user.username)
     return render(request, 'user_profile.html', {'customer': customer})
 
-def category(request,foo):
-    foo=foo.replace('-',' ')
-    category=Category.objects.get(name=foo)
-   
-    products=Product.objects.filter(category=category)
-    
-    return render(request,'category.html',{'products':products,'category':category})
 
-def search(request):
-    if request.method=='POST':
-        item=request.POST.get('search')
-        products=Product.objects.filter(Q(name__icontains=item)|Q(category__name__icontains=item))
-        if not item:  # Ensure the search query is not empty
-            return render(request, 'home_page.html')
-        
-        elif not products:
-            return render(request, 'home_page.html')
-        else:
-            
-            return render(request,'search.html',{'products':products}) 
-    return render(request,'search.html')
+
+def checkout(request):
+    cart=Cart(request)
+    final_cart=cart.cart_checkout()
+    total=cart.get_total()
+    return render(request, "checkout.html", {"final_cart":final_cart, "total": total})
+
+
+def place_order(request):
+    if request.method == "POST":
+        tid = request.POST.get("transaction_id")
+        cart = request.POST.get("final_cart", {})
+        total = request.POST.get("total")
+        items=''
+        for i in cart:
+            if i not in ["'", '"', "{", "}"]:
+                items+=i
+                #print(i,items)
+
+        print(type(cart),items)
+        order = Orders.objects.create(
+            order_id=str(uuid.uuid4())[:8],  # Generate unique order ID
+            transaction_id=tid,
+            customer_name=request.user.username,  # Get logged-in username
+            total_amount=total,
+            items=items,
+            status="Pending",
+        )
+
+       # add_order_to_sheets(order)
+
+        return redirect("history")
+
+# def add_order_to_sheets(order):
+#     scopes = [
+#         "https://www.googleapis.com/auth/spreadsheets",  #
+#         "https://www.googleapis.com/auth/drive"  
+#     ]
+
+    
+#     creds = Credentials.from_service_account_file(settings.GOOGLE_SHEETS_CREDENTIALS, scopes=scopes)
+
+    
+#     client = gspread.authorize(creds)
+#     sheet = client.open("CANTEEN PAYMENTS").sheet1  
+
+    
+#     sheet.append_row([
+#         order.order_id,
+#         order.transaction_id,
+#         order.customer_name,
+#         order.items,        
+#         order.total_amount,
+#         order.status
+#     ])
+    
+
+
+def history(request):
+    last_10_orders = Orders.objects.filter(customer_name=request.user.username).order_by('-created_at')[:10]
+
+    return render(request, "history.html", {
+       
+        "last_10_orders": last_10_orders
+    })
+
+

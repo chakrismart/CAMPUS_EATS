@@ -25,6 +25,7 @@
                     <li><a class="h" href="{%  url 'home' %}">Home</a></li>
                     <li><a class="h" href="#">Contact</a></li>
                     <li><a class="h" href="{% url 'about' %}">About</a></li>
+                    <li><a class="h" href="{% url 'history' %}">History</a></li>
                     
                 </ul>
             </nav>
@@ -40,18 +41,20 @@
                      alt="Theme icon">
             </a>
             
-          
-            
             <a href="{% url 'cart_summary' %}"><img class="cp" src="{% static 'cart_png.png' %}" alt="cart icon"></a>
            
             <a href="{% url 'profile' %}"><img class="cp" src="{% static 'profile_png.png' %}" alt="profile icon"></a>
         </div>
     </header>
-
+    <form class="search-bar" method="POST" action="{% url 'search' %}">
+        {% csrf_token %}
+        <input type="text" placeholder="Search for the dish...." name="search"/>
+        <button>
+            <img src="{% static 'search_icon.png' %}" alt="Search" />
+        </button>
+    </form>
     {% block content %}
-
     {% endblock %}
-    
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-logo">
