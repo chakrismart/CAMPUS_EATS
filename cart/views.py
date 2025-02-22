@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.http import JsonResponse
 from home.models import Product  
 from .cart import Cart  
@@ -26,7 +26,7 @@ def cart_add(request):
         cart.add(product=product,quantity=product_quantity)
         #print(product.id,product.name)
         messages.info(request,"PRODUCT ADDED TO CART")
-        return JsonResponse({"Product": product.name})
+        return redirect('category')
 
     
     return JsonResponse({"error": "Invalid request"}, status=400)

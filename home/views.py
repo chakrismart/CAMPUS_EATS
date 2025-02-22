@@ -9,6 +9,8 @@ import json
 from cart.cart import Cart
 import json
 import uuid
+from django.utils.timezone import localtime
+import pytz
 # import gspread
 # from google.oauth2.service_account import Credentials
 # from django.conf import settings
@@ -174,7 +176,7 @@ def place_order(request):
                 items+=i
                 #print(i,items)
 
-        print(type(cart),items)
+        #print(type(cart),items)
         order = Orders.objects.create(
             order_id=str(uuid.uuid4())[:8],  # Generate unique order ID
             transaction_id=tid,
@@ -212,12 +214,18 @@ def place_order(request):
 #     ])
     
 
-
 def history(request):
-    last_10_orders = Orders.objects.filter(customer_name=request.user.username).order_by('-created_at')[:10]
+     # Ensure you use the India timezone
+    last_10_orders = Orders.objects.order_by("-created_at")[:10]
+
+    # Convert order timestamps to IST
+    for order in last_10_orders:
+        print(order.created_at)
+        
+        
+    
 
     return render(request, "history.html", {
-       
         "last_10_orders": last_10_orders
     })
 

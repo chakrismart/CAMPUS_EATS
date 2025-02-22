@@ -1,7 +1,11 @@
 from django.db import models
 from django.utils.timezone import now
+from django.utils import timezone
 # Create your models here.
 import datetime
+
+import pytz
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
     
@@ -42,13 +46,21 @@ class Product(models.Model):
 
 
 class Orders(models.Model):
-    order_id = models.CharField(max_length=20, unique=True,blank=True)
+    order_id = models.CharField(max_length=20, unique=True, blank=True)
     transaction_id = models.CharField(max_length=50, blank=True, null=True)
-    customer_name = models.CharField(max_length=100,blank=True)
+    customer_name = models.CharField(max_length=100, blank=True)
     items = models.JSONField()  # Stores product IDs and quantities
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, default="Pending")  # "Pending" or "Paid"
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateField()  # Store only the date (no time)
+
+    def save(self, *args, **kwargs):
+        # Convert to IST before saving and store only date part
+        india_tz = pytz.timezone('Asia/Kolkata')
+        if not self.created_at:
+            now = timezone.now().astimezone(india_tz)  # Get current datetime in IST
+            self.created_at = now.date()  # Store only the date part
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Order {self.order_id} - {self.status}"
