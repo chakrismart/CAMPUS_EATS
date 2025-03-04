@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+
+import pymysql
+pymysql.install_as_MySQLdb()
+
+
 TIME_ZONE = 'Asia/Kolkata'  # India Standard Time (IST)
 USE_TZ = True
 
