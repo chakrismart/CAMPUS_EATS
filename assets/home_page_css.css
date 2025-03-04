@@ -1041,55 +1041,7 @@ body.dark-theme .footer-links ul li a {
     margin: 20px 0;
 }
 
-/* Container */
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    background: #f3f2f2;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-    max-width: 850px;
-    width: 100%;
-    gap: 25px;
-    transition: background 0.3s ease-in-out;
-}
 
-body.dark-theme .container {
-    background-color: #2c2d2c;
-    color: white;
-}
-
-
-
-
-/* Form Section */
-.form-container {
-    flex: 1;
-    border-left: 2px solid #ddd;
-    padding-left: 20px;
-    min-width: 280px;
-}
-
-h2 {
-    margin-bottom: 15px;
-    font-size: 22px;
-}
-
-.form-group {
-    margin-bottom: 18px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 6px;
-    color: #444;
-}
-
-body.dark-theme label {
-    color: white;
-}
 
 p {
     background: #fff;

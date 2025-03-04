@@ -2,18 +2,52 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&family=Raleway:wght@100..900&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Eats</title>
-    <link rel="stylesheet" href="{% static 'home_page_css.css' %}">
-    <meta name="csrf-token" content="{{ csrf_token }}">
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Campus Eats - Order food from anywhere in Vignan Institute of Information Technology, Vizag.">
+        <meta name="keywords" content="canteen, food delivery, Vignan Institute, Vizag, Campus Eats">
+        <meta name="author" content="Campus Eats Team">
+        <meta name="csrf-token" content="{{ csrf_token }}">
+    
+        <!-- Open Graph for social sharing -->
+        <meta property="og:title" content="Campus Eats - College Canteen Automation">
+        <meta property="og:description" content="Easily order food from anywhere in Vignan Institute of Information Technology, Vizag.">
+        <meta property="og:image" content="{% static 'dark_theme_logo.png' %}">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://campuseats.com"> <!-- Update after deployment -->
+        
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Campus Eats - College Canteen Automation">
+        <meta name="twitter:description" content="Easily order food from anywhere in Vignan Institute of Information Technology, Vizag.">
+        <meta name="twitter:image" content="{% static 'dark_theme_logo.png' %}">
+    
+        <title>Campus Eats - Order Food in College</title>
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&family=Raleway:wght@100..900&display=swap" rel="stylesheet">
+        
+        <link rel="stylesheet" href="{% static 'home_page_css.css' %}">
+        <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Campus Eats",
+              "url": "https://yourdeployedsite.com",
+              "logo": "{% static 'dark_theme_logo.png' %}",
+              "description": "Order food from anywhere in Vignan Institute of Information Technology, Vizag with Campus Eats.",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91 8125812819",
+                "contactType": "Customer Support"
+              }
+            }
+            </script>
+            
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    </head>
 <body>
     <header>
         <div class="logo">

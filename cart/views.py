@@ -26,8 +26,7 @@ def cart_add(request):
         cart.add(product=product,quantity=product_quantity)
         #print(product.id,product.name)
         messages.info(request,"PRODUCT ADDED TO CART")
-        return redirect('category')
-
+        return JsonResponse({"message": "Product added to cart"})
     
     return JsonResponse({"error": "Invalid request"}, status=400)
 
